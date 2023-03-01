@@ -11,14 +11,11 @@
 #include <SPI.h>
 #include <RH_RF95.h>
 
-// Singleton instance of the radio driver
-RH_RF95 rf95;
-//RH_RF95 rf95(5, 2); // Rocket Scream Mini Ultra Pro with the RFM95W
-//RH_RF95 rf95(8, 3); // Adafruit Feather M0 with RFM95 
+#define RFM95_RST     2
+  #define RFM95_CS      4
+  #define RFM95_INT     3
 
-// Need this on Arduino Zero with SerialUSB port (eg RocketScream Mini Ultra Pro)
-//#define Serial SerialUSB
-
+RH_RF95 rf95(RFM95_CS, RFM95_INT);
 void setup() 
 {
   // Rocket Scream Mini Ultra Pro with the RFM95W only:
