@@ -1,23 +1,12 @@
-// rf95_server.pde
-// -*- mode: C++ -*-
-// Example sketch showing how to create a simple messageing server
-// with the RH_RF95 class. RH_RF95 class does not provide for addressing or
-// reliability, so you should only use RH_RF95  if you do not need the higher
-// level messaging abilities.
-// It is designed to work with the other example rf95_client
-// Tested with Anarduino MiniWirelessLoRa, Rocket Scream Mini Ultra Pro with
-// the RFM95W, Adafruit Feather M0 with RFM95
-
-#include <SPI.h>
+ #include <SPI.h>
 #include <RH_RF95.h>
+ 
+  #define RFM95_INT     3  // "A"
+  #define RFM95_CS      4  // "B"
+  #define RFM95_RST     2  // "C"
 
-// Singleton instance of the radio driver
-RH_RF95 rf95;
-//RH_RF95 rf95(5, 2); // Rocket Scream Mini Ultra Pro with the RFM95W
-//RH_RF95 rf95(8, 3); // Adafruit Feather M0 with RFM95 
+RH_RF95 rf95(RFM95_CS, RFM95_INT);
 
-// Need this on Arduino Zero with SerialUSB port (eg RocketScream Mini Ultra Pro)
-//#define Serial SerialUSB
 
 int led = 9;
 
@@ -31,8 +20,13 @@ void setup()
   pinMode(led, OUTPUT);     
   Serial.begin(9600);
   while (!Serial) ; // Wait for serial port to be available
+  
+  Serial.println("Init starting");
+
   if (!rf95.init())
-    Serial.println("init failed");  
+    Serial.println("server init failed"); 
+  else
+    Serial.println("server init successful");
   // Defaults after init are 434.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
 
   // The default transmitter power is 13dBm, using PA_BOOST.
