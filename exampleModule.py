@@ -10,10 +10,10 @@ class exampleModule():
     def __init__(self):
         print("instance of {module name} created")
 
-    def setup():
+    def setup(self):
         example_sensor = exampleSensor()
 
-    def poll():
+    def poll(self):
         sensor_data = exampleSensor.read_data()
         return str(sensor_data)
 
@@ -21,4 +21,4 @@ class exampleModule():
 #dummy class for demonstration purposes
 class exampleSensor():
     def read_data():
-        return random.randint()
+        return random.randint(-100, 100)
